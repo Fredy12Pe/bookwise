@@ -1,50 +1,118 @@
-# Welcome to your Expo app 👋
+# Bookwise - AI-Powered Book Learning App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Bookwise is a mobile application designed to enhance your learning experience from books using AI technology. It provides features like book summaries, flashcards, audio learning, and personalized recommendations.
 
-## Get started
+## Features
 
-1. Install dependencies
+- 📚 Book Summaries: Get concise summaries of books you're reading
+- 🎴 Flashcards: Create and study flashcards from book content
+- 🔊 Audio Learning: Listen to book summaries and key concepts
+- 📊 Learning Stats: Track your reading and learning progress
+- 🔍 Book Recommendations: Get personalized book suggestions
+
+## Tech Stack
+
+- React Native with Expo
+- Firebase for backend services
+- OpenAI API for AI-powered features
+- Expo Speech for text-to-speech functionality
+
+## Prerequisites
+
+- Node.js (v14 or later)
+- npm or yarn
+- Expo CLI
+- Firebase account
+- OpenAI API key
+- Google Books API key
+- NYT Books API key
+
+## Setup Instructions
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/bookwise.git
+   cd bookwise
+   ```
+
+2. Install dependencies:
 
    ```bash
    npm install
+   # or
+   yarn install
    ```
 
-2. Start the app
+3. Create a `.env` file in the root directory with your Firebase and OpenAI configuration:
+
+   ```
+   FIREBASE_API_KEY=your_firebase_api_key
+   FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+   FIREBASE_PROJECT_ID=your_firebase_project_id
+   FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+   FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+   FIREBASE_APP_ID=your_firebase_app_id
+   FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
+   OPENAI_API_KEY=your_openai_api_key
+   ```
+
+4. Create a `config.js` file in the root directory with your API keys:
+
+   ```javascript
+   export const API_KEYS = {
+     googleKey: "your_google_books_api_key",
+     nytKey: "your_nyt_api_key",
+   };
+   ```
+
+   Note: This file is already in .gitignore and should not be committed to version control.
+
+5. Initialize the API keys in secure storage:
 
    ```bash
-    npx expo start
+   node scripts/initApiKeys.js
    ```
 
-In the output, you'll find options to open the app in a
+6. Start the development server:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   ```bash
+   npx expo start
+   ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+7. Run the app on your device:
+   - Install the Expo Go app on your mobile device
+   - Scan the QR code shown in the terminal with your device's camera
+   - The app will open in Expo Go
 
-## Get a fresh project
+## Project Structure
 
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+bookwise/
+├── assets/             # Images, fonts, and other static assets
+├── components/         # Reusable UI components
+├── lib/               # Utility functions and API integrations
+├── screens/           # App screens
+├── navigation/        # Navigation configuration
+├── services/          # Backend service integrations
+└── App.js            # Main application component
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Contributing
 
-## Learn more
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-To learn more about developing your project with Expo, look at the following resources:
+## License
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Join the community
+## Acknowledgments
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo](https://expo.dev/)
+- [Firebase](https://firebase.google.com/)
+- [OpenAI](https://openai.com/)
+- [React Native](https://reactnative.dev/)

@@ -7,6 +7,7 @@ node_modules/
 .expo/
 dist/
 web-build/
+expo-env.d.ts
 
 # Native
 *.orig.*
@@ -35,31 +36,3 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
-
-# Node.js
-node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
-
-# Environment variables
-.env
-.env.local
-.env.development
-.env.production
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Testing
-coverage/
-
-# Production
-build/
-*.log
-
-# API Keys
-config.js
