@@ -5,6 +5,7 @@
 
 const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
+const brandColor = '#211B32';
 
 export const Colors = {
   light: {
@@ -14,13 +15,23 @@ export const Colors = {
     icon: '#687076',
     tabIconDefault: '#687076',
     tabIconSelected: tintColorLight,
+    brand: brandColor,
+    searchBar: '#F3F4F6',
+    categoryCard: '#F3F4F6',
+    border: '#E5E7EB',
+    secondaryText: '#6B7280',
   },
   dark: {
     text: '#ECEDEE',
-    background: '#151718',
+    background: brandColor,
     tint: tintColorDark,
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
+    brand: brandColor,
+    searchBar: '#2F2B43',
+    categoryCard: '#2F2B43',
+    border: '#3F3D56',
+    secondaryText: '#9CA3AF',
   },
 };

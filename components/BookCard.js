@@ -1,21 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
-  Text,
   Image,
   StyleSheet,
   TouchableOpacity,
-  Dimensions
+  ActivityIndicator
 } from 'react-native';
-
-const DEFAULT_COVER = 'https://via.placeholder.com/128x196?text=No+Cover';
+import { ThemedText } from './ThemedText';
+import { Colors } from '../constants/Colors';
+import { useColorScheme } from '../hooks/useColorScheme';
 
 export default function BookCard({ book, onPress, style }) {
+  const colorScheme = useColorScheme();
+  const theme = colorScheme ?? 'light';
   const {
     title,
-    authors = [],
+    publisher,
     thumbnail,
   } = book;
+
+  const [imageError, setImageError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setImageError(false);
+    setIsLoading(!!thumbnail);
+  }, [thumbnail]);
+
+  const handleImageError = () => {
+    console.log('Image load error for:', title, thumbnail);
+    setImageError(true);
+    setIsLoading(false);
+  };
 
   return (
     <TouchableOpacity
@@ -23,61 +39,78 @@ export default function BookCard({ book, onPress, style }) {
       onPress={() => onPress?.(book)}
       activeOpacity={0.7}
     >
-      <Image
-        source={{ uri: thumbnail || DEFAULT_COVER }}
-        style={styles.cover}
-        resizeMode="cover"
-      />
+      <View style={styles.imageContainer}>
+        {/* Book cover */}
+        {thumbnail && !imageError ? (
+          <Image 
+            source={{ uri: thumbnail }}
+            style={styles.cover}
+            resizeMode="cover"
+            onError={handleImageError}
+            onLoadStart={() => setIsLoading(true)}
+            onLoadEnd={() => setIsLoading(false)}
+          />
+        ) : (
+          <View style={[styles.cover, { backgroundColor: book.color || Colors[theme].categoryCard }]} />
+        )}
+        
+        {/* Loading overlay */}
+        {isLoading && (
+          <View style={styles.loadingOverlay}>
+            <ActivityIndicator size="large" color={Colors[theme].text} />
+          </View>
+        )}
+      </View>
       <View style={styles.info}>
-        <Text numberOfLines={2} style={styles.title}>
-          {title}
-        </Text>
-        <Text numberOfLines={1} style={styles.author}>
-          {authors.join(', ')}
-        </Text>
+        <ThemedText numberOfLines={1} style={styles.title}>
+          {title || 'Unknown Title'}
+        </ThemedText>
+        <ThemedText numberOfLines={1} style={styles.publisher}>
+          {publisher || 'Unknown Publisher'}
+        </ThemedText>
       </View>
     </TouchableOpacity>
   );
 }
 
-const { width } = Dimensions.get('window');
-const CARD_MARGIN = 8;
-const CARD_WIDTH = (width - CARD_MARGIN * 6) / 2.5;
-
 const styles = StyleSheet.create({
   container: {
-    width: CARD_WIDTH,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    marginHorizontal: CARD_MARGIN,
-    marginVertical: 8,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    width: 160,
+    marginRight: 16,
+    backgroundColor: 'transparent',
+  },
+  imageContainer: {
+    position: 'relative',
+    width: '100%',
+    aspectRatio: 1,
+    borderRadius: 16,
+    overflow: 'hidden',
   },
   cover: {
     width: '100%',
-    height: CARD_WIDTH * 1.5,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-    backgroundColor: '#f0f0f0',
+    height: '100%',
+    borderRadius: 16,
+  },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.3)',
   },
   info: {
-    padding: 12,
+    marginTop: 8,
   },
   title: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '600',
-    color: '#1a1a1a',
     marginBottom: 4,
   },
-  author: {
-    fontSize: 12,
-    color: '#666666',
+  publisher: {
+    fontSize: 14,
+    color: Colors.light.secondaryText,
   },
 }); 

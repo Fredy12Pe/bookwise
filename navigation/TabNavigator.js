@@ -1,49 +1,49 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet } from 'react-native';
 
-// Import screens
+// Import your screen components
 import LibraryScreen from '../screens/LibraryScreen';
-import DiscoverScreen from '../screens/DiscoverScreen';
-import LearnScreen from '../screens/LearnScreen';
-import AudioScreen from '../screens/AudioScreen';
-import ProfileStack from './ProfileStack';
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = () => {
+export default function TabNavigator() {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          if (route.name === 'Library') {
-            iconName = focused ? 'library' : 'library-outline';
-          } else if (route.name === 'Discover') {
-            iconName = focused ? 'compass' : 'compass-outline';
-          } else if (route.name === 'Learn') {
-            iconName = focused ? 'book' : 'book-outline';
-          } else if (route.name === 'Audio') {
-            iconName = focused ? 'headset' : 'headset-outline';
-          } else if (route.name === 'Profile') {
-            iconName = focused ? 'person' : 'person-outline';
-          }
-
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: '#2F80ED',
-        tabBarInactiveTintColor: 'gray',
+      screenOptions={{
+        tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: '#4263EB',
+        tabBarInactiveTintColor: '#A0A0A0',
+        tabBarLabelStyle: styles.tabLabel,
         headerShown: false,
-      })}
+      }}
     >
-      <Tab.Screen name="Library" component={LibraryScreen} />
-      <Tab.Screen name="Discover" component={DiscoverScreen} />
-      <Tab.Screen name="Learn" component={LearnScreen} />
-      <Tab.Screen name="Audio" component={AudioScreen} />
-      <Tab.Screen name="Profile" component={ProfileStack} />
+      <Tab.Screen
+        name="Library"
+        component={LibraryScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="library-outline" size={size} color={color} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
-};
+}
 
-export default TabNavigator; 
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: '#FFFFFF',
+    borderTopWidth: 1,
+    borderTopColor: '#F0F0F0',
+    paddingTop: 8,
+    paddingBottom: 8,
+    height: 60,
+  },
+  tabLabel: {
+    fontSize: 12,
+    fontWeight: '500',
+    marginBottom: 4,
+  },
+}); 
